@@ -6,6 +6,10 @@
 
 module.exports = {
   /* Your site config here */
+  siteMetadata: {
+    title: `Amber Blog`,
+    siteUrl: `https://blog.yuanboxue.com`,
+  },
   plugins: [
     `gatsby-plugin-typescript`,
     `gatsby-plugin-sass`,

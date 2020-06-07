@@ -1,6 +1,7 @@
 import Layout from '../components/Layout';
 import Posts from '../components/Posts';
 import Hero from '../components/Hero';
+import SEO from '../components/SEO';
 import React from 'react';
 import { graphql } from 'gatsby';
 
@@ -10,6 +11,7 @@ const IndexPage = ({ data }: any) => {
   } = data;
   return (
     <Layout>
+      <SEO title={`Home`} />
       <Hero />
       <Posts posts={posts} title='recently published' />
     </Layout>
