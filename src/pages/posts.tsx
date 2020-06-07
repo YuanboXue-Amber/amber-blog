@@ -4,21 +4,21 @@ import Hero from '../components/Hero';
 import React from 'react';
 import { graphql } from 'gatsby';
 
-const IndexPage = ({ data }: any) => {
+const PostsPage = ({ data }: any) => {
   const {
     allMdx: { nodes: posts },
   } = data;
   return (
     <Layout>
       <Hero />
-      <Posts posts={posts} title='recently published' />
+      <Posts posts={posts} title='all posts' />
     </Layout>
   );
 };
 
 export const query = graphql`
   {
-    allMdx(sort: { order: DESC, fields: frontmatter___date }, limit: 10) {
+    allMdx(sort: { order: DESC, fields: frontmatter___date }) {
       nodes {
         frontmatter {
           slug
@@ -41,4 +41,4 @@ export const query = graphql`
   }
 `;
 
-export default IndexPage;
+export default PostsPage;

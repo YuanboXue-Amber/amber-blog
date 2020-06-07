@@ -4,28 +4,36 @@ import Hero from '../components/Hero';
 import React from 'react';
 import { graphql } from 'gatsby';
 
-const IndexPage = ({ data }: any) => {
+const CategoryTemplate = (props: any) => {
   const {
-    allMdx: { nodes: posts },
-  } = data;
+    pageContext: { category },
+  } = props;
+  const {
+    data: {
+      categories: { nodes: posts },
+    },
+  } = props;
   return (
     <Layout>
       <Hero />
-      <Posts posts={posts} title='recently published' />
+      <Posts posts={posts} title={`category / ${category}`} />
     </Layout>
   );
 };
 
 export const query = graphql`
-  {
-    allMdx(sort: { order: DESC, fields: frontmatter___date }, limit: 10) {
+  query MyQuery($category: String!) {
+    categories: allMdx(
+      filter: { frontmatter: { category: { eq: $category } } }
+      sort: { fields: frontmatter___date, order: DESC }
+    ) {
       nodes {
         frontmatter {
-          slug
-          date(formatString: "MMMM Do, YYYY")
+          title
           category
           readTime
-          title
+          date(formatString: "MMMM Do, YYYY")
+          slug
           image {
             childImageSharp {
               fluid {
@@ -41,4 +49,4 @@ export const query = graphql`
   }
 `;
 
-export default IndexPage;
+export default CategoryTemplate;
