@@ -55,5 +55,13 @@ module.exports = {
         ],
       },
     },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: process.env.AMBER_BLOG_GOOGLE_ANALYTICS_TRACKING_ID,
+        // Setting this parameter is optional
+        anonymize: true,
+      },
+    },
   ],
 };
