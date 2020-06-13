@@ -12,6 +12,6 @@ const Image = ({ src, alt }: Props) => {
 const Wrapper = styled.img`
   border-radius: 10px;
   height: 20rem;
-  object-fit: cover;
+  max-width: 100%;
 `;
 export default Image;
