@@ -1,6 +1,12 @@
 {
   "editor.formatOnPaste": true,
-  "editor.formatOnSave": true,
+  "[typescriptreact]": {
+    "editor.formatOnSave": true
+  },
+  "[javascript]": {
+    "editor.formatOnSave": true
+  },
+  "editor.formatOnSave": false,
   "editor.tabSize": 2,
   "eslint.alwaysShowStatus": true,
   "eslint.options": {

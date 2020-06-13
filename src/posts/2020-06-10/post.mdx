@@ -1,0 +1,53 @@
+---
+title: LeetCode 593 - Valid Square, and more
+slug: leetcode-593-valid-square
+image: ./images/image1.jpg
+date: 2020-06-10
+category: LeetCode
+readTime: 15
+tags: ['leetcode', 'math']
+---
+import { Code, OrderedList } from '../../components/Complete';
+
+### - Problem 593. Valid Square
+<br />
+Given the coordinates of four points in 2D space, return whether the four points could construct a square. <br />
+The coordinate (x,y) of a point is represented by an integer array with two integers. <br />
+<br />
+Example:  <br />
+<Code>
+Input: p1 = [0,0], p2 = [1,1], p3 = [1,0], p4 = [0,1] <br />
+Output: True<br />
+</Code>
+<br />
+Note:
+
+1. All the input integers are in the range [-10000, 10000].
+2. A valid square has four equal sides with positive length and four equal angles (90-degree angles).
+3. Input points have no order.
+
+<br /><br />
+
+### - Solution
+```js
+var validSquare = function (...p) {
+  const dist = ([a, b], [c, d]) => {
+    return (a - c) ** 2 + (b - d) ** 2;
+  };
+
+  // After sorting:
+  // - p0p1 p1p3 p3p2 p2p0 forms the sides of square
+  // - p0p3 p1p2 forms the diagnoal
+  p.sort((l1, l2) => (l2[0] == l1[0] ? l1[1] - l2[1] : l1[0] - l2[0]));
+  return (
+    dist(p[0], p[1]) != 0 &&
+    dist(p[0], p[1]) == dist(p[1], p[3]) &&
+    dist(p[1], p[3]) == dist(p[3], p[2]) &&
+    dist(p[3], p[2]) == dist(p[2], p[0]) &&
+    dist(p[0], p[3]) == dist(p[1], p[2])
+  );
+};
+console.log(
+  validSquare([1, 0], [-1, 0], [0, Math.sqrt(3)], [0, 0 - Math.sqrt(3)])
+);
+```
