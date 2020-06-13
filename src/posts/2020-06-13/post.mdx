@@ -1,0 +1,477 @@
+---
+title: My CSS Cheat Sheet
+slug: css-cheese
+image: ./images/cheese.jpg
+date: 2020-06-13
+category: CSS
+readTime: 10
+tags: ["css"]
+---
+
+import cssBox from './images/css-box-model.png'
+import cssFlex from './images/mainAxis-crossAxis.jpeg'
+import cssGrid from './images/css-grid-area.jpeg'
+
+<blockquote>
+I have spent time to learn CSS systematically 3 times in mylife. But because I haven't been intensively using CSS (except from the recent few month), I constantly find myself trying to figure out how to implement some basic effects in CSS. This is frustrating so I decided to end the pain by creating my own CSS cheatsheet :)
+</blockquote>
+
+### Resources:
+- free images: <br />
+<a href="https://pixabay.com/" data-hover="pixabay">pixabay</a><br/>
+<a href="https://www.pexels.com/" data-hover="pexels">pexels</a><br/>
+<a href="https://gratisography.com/" data-hover="gratisography">gratisography</a><br/>
+
+<br/>
+
+- color combinations:<br/>
+<a href="https://coolors.co/" data-hover="coolors">coolors</a><br/>
+
+<br/>
+
+- css linear gradient generator:<br/>
+<a href="https://www.colorzilla.com/gradient-editor/" data-hover="colorzilla">colorzilla</a><br/>
+<a href="https://www.cssmatic.com/" data-hover="cssmatic">cssmatic</a> (also has box shadow generator)
+<br/>
+
+<br/>
+
+
+- font awesome icon:<br/>
+<a href="https://fontawesome.com/" data-hover="fontawesome">fontawesome</a> It's better to download it, in case the version change
+<br/>
+
+<br/>
+
+- fonts I like: <br/>
+proxima nova <br/>
+roboto mono <br/>
+
+<br/>
+
+### CSS Basics:
+
+#### Selector:
+
+- [specifity measurement](https://specifishity.com/)
+- group: `#id1, .class2 {}`
+- direct child: `div > h1` descendants: `div h1`
+- `p::first-line` and `p::first-letter`
+- pseudo Element `p::before` and `p::after`
+  ```css
+  p::before {
+    content: 'hello';
+    /* adds hello insides p element, in front of its original content;
+    so actually pseudo element's parent in this case is p */
+  }
+  ```
+  - Because pseudo element is actually content, so `content` property, for example `content: ''`, is **required**.
+  - does NOT affect `<img`
+- pseudo class selector
+  - `div:hover` when mouse over
+- link pseudo class selector
+  - `div:link` all the links (`<a href=`) in div
+  - `a:visited` all visited links
+  - `div:active` in div, link being clicked at this moment
+- root pseudo class selector `:root`
+
+<br/>
+
+#### Variables
+
+- name beging with double hyphen `--`
+- global variables: `:root { --primaryColor: red; }` <br />
+  to use it `div {color: var(--primaryColor);}`
+- local variables: `div { --primaryColor: red; } div .class-in-div {color: var(--primaryColor);}`
+
+<br/>
+
+#### Browser Prefixes
+
+Browser Prefix are for experimental or nonstandard CSS properties and JavaScript APIs, so developers can experiment with new ideas while—in theory—preventing their experiments from being relied upon and then breaking web developers' code during the standardization process.
+
+- https://caniuse.com/ gives details of if a css technology is supported
+- https://autoprefixer.github.io/ automatically adds prefixes
+
+Normally there's tools to add those stuffs for you.
+
+<br/>
+
+#### Unit
+
+`em`: relative depend on parent. Browser default is 16px <br/>
+`rem`: relative depend on root. Default root is `<html>`, and it has 16px <br/>
+`vh` `vw`: percent of the screen <br/>
+`calc(100vh - 100px)`: calculate. The space before and after `-` is necessary!
+
+<br/>
+
+#### Box model
+
+<img src={cssBox} alt="css box model" />
+
+- **sequence**:
+  - 'padding/margin: topbottom, leftright'
+  - 'padding/margin: top, right, bottom, left' (clockwise)
+  - 'border/outline: width type color'
+- **outline**: similar to border. But it has the nice `outline-offset` which moves it in/out of the element
+- **get rid of browser default**:
+  ```css
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  ```
+- **box-sizing**:
+  - default is `content-box`, meaning 'width(height) = content width(height)', without padding.
+  - `border-box` meaning 'width(height) = content width(height) + border width(height) + padding'
+
+<br/>
+
+#### inline and block
+
+- **centering**:
+  - inline element: `text-align: center`
+  - block element: 'margin: something auto', for example `margin: 0 auto`
+  - center div in div:
+  ```css
+  div {
+    position: relative;
+  }
+  .inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    /* now we have .inner's top-left corner in the middle, and we need to shift back a bit because .inner has its own width and height */
+    transform: translate(-50%, -50%);
+  }
+  ```
+- **top/bottom padding/margin for inline element is not respected**. Elements may end up overlapping on one another.
+  - when wanting elements inline but still some margins on top bottom, use `display: inline-block`
+- **hide an element**:
+  - `display: none` hides the element completely, it doesn't show on the page
+  - `opacity: 0` and `visibility: hidden` works similarly.
+- **Adjust parent div to be same ratio as child image**
+  ```css
+  div {
+    width: 50vw;
+    /* no height property */
+  }
+  img {
+    width: 100%;
+    display: block; /* this is what does the trick. Without this there will be an extra default margin */
+  }
+  ```
+
+<br/>
+
+#### background img
+
+- By default it repeats the img when div is too big. `background-size: cover` **strech background img and fill the div**.
+- `background-attachment: fixed`: when scrolling, background image doesn't move, only text on top moves
+- A nice **banner** with grey overlay to make text more visiable:
+
+```css
+.banner {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('./image.jpeg') center/cover fixed no-repeat; /* fixed might not work on iphone */
+}
+```
+
+<br/>
+
+#### float
+
+- `overflow: hidden` clip content to fit inside container
+- clear float from both left and right `clear: both`
+- use float to set cards for different screen size:
+
+```css
+@media screen and (min-width: 576px) {
+  .card {
+    float: left;
+    width: 50%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  /* fload is already applied for this size, so no need to write again */
+  .card {
+    width: 25%;
+  }
+}
+```
+
+<br/>
+
+#### position
+
+- `position: relative` position element relative to its default position (static position). For example `{top: 50px; left: 20rem}` place the element **lower** 50px, and **right** 20rem of its original position
+- `position: fixed` positioned relative to the viewport, which means it always stays in the same place even if the page is scrolled. Often used for **nav**
+- `position: absolute` positioned relative to the nearest **positioned** ancestor. If element has no positioned ancestors, it uses the document body
+
+<br/>
+
+#### Media Queries
+
+```scss
+@media screen and (max-width: 768px) and (min-width: 576px) {
+  // the space here is necessary...
+  // rules for screen size >= 576px
+}
+@media only screen and (max-width: 632px) {
+} // the only keyword here is to prevent older browsers that don't support media query from processing it
+```
+
+<br/>
+
+#### Z-index
+
+Cntrol who goes on top of who. By default z-index is 0;
+
+- does NOT work with default `position: static`
+- `.one { z-index: 1; }` is on top of `.zero { z-index: 0; }`, which is on top of `.minus { z-index: -1; }`
+
+<br/>
+
+#### transform
+
+- translate:
+  ```css
+  div {
+    width: 100px;
+    height: 200px;
+    transform: translate(
+      50%,
+      25%
+    ); /* move right 50px, down 50px; 50% and 25% is relative to the size of the current element div, in this case 100px*200px */
+  }
+  ```
+- scale: `transform: scale(2, 0.5)` will turn a 100px\*200px div to 200px\*100px
+- rotate: `transform: rotateZ(45deg)` turn it clockwise 45 degrees.
+  - z is the scale pointing out of the screen, the most used one.
+  - x and y is the scale on the screen surface. x point down y point right. So:
+    - when rotate a square 90deg on x or y, it will disappear
+    - when rotate a square 20deg on x, it will keep width, and be fatter
+    - when rotate a square 20deg on y, it will keep height, and be skinnier
+- skew: `transform: skew(-20deg, 20deg)` is skewing -20deg on x direction, and 20 on y
+
+<br/>
+
+#### transition
+
+- `transition-property: background, border-radius; transition-duration: 4s, 2s; transition-delay: 3s;` After 3s of waiting, background will have transition 4s, and border-radius will have 2s
+- transition timing function
+  - ease: default, slow start, fast, slow end
+  - linear: same speed start to end
+  - ease-in: slow start
+  - ease-out: slow end
+  - ease-in-out: slow start and end
+- short way
+  - `transition: background 4s 3s, border-radius linear 2s 3s` first duration then transition-timing-function then delay
+  - `transition: all 3s 5s` apply on all properties
+
+<br/>
+
+#### animation
+
+```scss
+div {
+  animation-name: move;
+  animation-duration: 10s;
+  animation-iteration-count: 2; /* it will run 2 times */
+  /* short way: animation: move 10s 2; */
+}
+@keyframes move {
+  0% {
+    transform: translateX(20px);
+  }
+  50% {
+    transform: translateX(100px);
+    background: red;
+  }
+  80% {
+    transform: translateX(-100px);
+    background: yellow;
+  }
+}
+```
+
+- difference from transition: transition always go from start to end, annimation can be only for part of it. Also animation can be run many times.
+- `animation-fill-mode: forwards` target will retain the computed values set by the last keyframe
+
+<br/>
+
+#### shadow
+
+`text-shadow: 1px 2px 3px red` and `box-shadow: 1px 2px 3px green` x-direction y-direction blur color
+
+<br/>
+
+### Flexbox
+
+Funny game to learn flexbox: <a href="http://flexboxfroggy.com/" data-hover="pixabay">flexboxfroggy</a><br/>
+
+- On parent container: `display: flex` which is a block element; while `display: inline-flex` is a inline element, takes up only the space needed.
+
+<br/>
+
+Let's say parent has 5 children 12345 <br/>
+
+- properties that affects all children (when applied on parent)
+  - `flex-direction`:
+    - `row` is default, arrange children 12345 horizontally.
+    - `row-reverse` arrange children to 54321 horizontally.
+    - There's also `column` and `column-reverse`<br/>
+    <br/>
+
+  - `flex-wrap`:
+    - `no-wrap` is default, when children is wider than parent, create overflow.
+    - `wrap` will put children on a new line when there's not enough space.
+    - `wrap-reverse` will wrap and reverse order of children.<br/>
+    <br/>
+
+  - `justify-content` for **horizontal alignment**:
+    - `flex-start` is default, align children from the start of parent.
+    - `flex-end` align children to the end part of the parent.
+    - `space-between` will have child 1 at start and child 5 at end, and children 345 evenly distributed in the middle, with spacing in between. Looks like: `1_2_3_4_5`
+    - `space-around`, each child will have the same margin **left and right**. Looks like: `_1__2__3__4__5_`
+    - `space-evenly`, similar to `space-around` but with spacing between each child exactly the same. Looks like: `_1_2_3_4_5_`
+    - `center`, all children go closely in center with space on left and right side. Looks like: `__12345__`<br/>
+    <br/>
+
+  - `align-items` for **vertial alignment**:
+    - `stretch` is default, strech children to the height specified
+    - `flex-start` children will be aligned to the top of the container
+    - `flex-end` children at bottom
+    - `center` children at the vertical center
+    - `baseline` similar as `flex-start` but uses the middle of the children as base instead of the top. So if child 3 is taller than others, `flex-start` will align by top of all children, while `base-line` will result in children 1245 having some space on top. Can be used on nav bar because logos could have different size.<br/>
+    <br/>
+
+  - `align-content`
+    - `stretch` is default. There's also `flex-start` and `flex-end` and `center`. These works similarly as `align-items`
+    - `space-around` `space-between` similar to justify content, but the spacing is vertically, between each rows of children.<br/>
+    <br/>
+
+  - **axis**: this controls the direction of alignment.<br/>
+    <br/>
+
+    When `flex-direction: row`, `justify-content: center` align items horizontally in center because main axis is left-to-right.<br/>
+    <br/>
+
+    But when `flex-direction: column`, `justify-content: center` align items vertically in center because main axis is top-to-down.<br/>
+    <br/>
+
+<img src={cssFlex} alt="mainaxis crossaxis" />
+
+<br/>
+<br/>
+
+- properties that affects only one child (when applied on this child)<br/>
+<br/>
+
+  - It is not advised to use padding for child when using flexbox
+
+  - `order: 1` order has default 0. So when children are 'abcde', giving child 'a' order 1 will result in children being 'bcdea'
+
+  - `align-self` align the current child how you want
+
+  - `flex-grow` default is 0. when set to 1, current child will grow to fill in parent container. A child has grow 2 grows more than a child with grow 1.
+
+  - `flex-shrink` default is 1, the child shrink when screen size is smaller. When shrink is 0, the child doesn't shrink.
+
+  - `flex-basis` set inital size of child
+
+  - short hand: `flex: 0 0 calc(25% - 1rem);` grow shrink basis. The way of using 'calc' to set basis allows margins in between children
+
+<br/>
+
+### Grid
+
+Funny game to learn grid: <a href="https://cssgridgarden.com/" data-hover="cssgridgarden">cssgridgarden</a><br/>
+
+- on parent container<br/>
+
+  - `display: grid`<br/>
+    <br/>
+
+  - unit: normal units, plus `auto` and `fr` which are responsive.
+    - `fr` fraction of available space. `grid-template-columns: 3fr 2fr` gives 2 columns: one of 3/5 of available space and another of 2/5.
+    - `repeat(3, 1fr)` is the same as `1fr 1fr 1fr`
+  - implicit grid: when there's more item than grids, new items will be added according to the grid, but with `auto` sizing .<br/>
+    <br/>
+
+  - `grid-template`
+    - `grid-template-columns: 100px 200px` gives 2 columns of 100 and 200px. Same goes with `grid-template-rows`
+    - name grid lines, for example: `grid-template-columns: [start] 100px 200px [end]` give the first grid line 'start' and last 'end'. Names can be the same. Note that the name is for grid **lines** not grid cells.
+    - set minmax `grid-template-columns: 1fr minmax(300px, 1fr) 1fr` this way the middle column will have at least 300px width
+    - auto-fit and auto-fill for when you don't know how many children you will have:
+      - `grid-template-columns: repeat(auto-fill, minmax(200px, 1fr))` will try to align childrens with 200px wide in one row. When there's too many children to fit in one row, put them on the second row.
+      - `grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))` similiar to auto-fill but stretch children to fit the entire row<br/>
+    <br/>
+
+  - `grid-gap: 50px`. If it's 2 values than the first is for row second for col. There's also `grid-row-gap` and `grid-col-gap`
+    - when there's gap, `fr` uses the remaining space left by gap. That's why `fr` is so awesome<br/>
+    <br/>
+
+  - set alignment of all children
+    - `justify-content` also works with `display: grid`.
+    - `align-content` also works if there's height specified for parent, for example `min-height: 100vh`
+    - `align-items` `justify-items`<br/>
+    <br/>
+
+- on child<br/>
+    <br/>
+
+  - `grid-column-start: 1` and `grid-column-end: 3` will make this child span 2 columns: 1 and 2. Short hand is `grid-column: 1/3`. Same goes with `grid-row-start` and `grid-row-end`
+    - using number to create span of entire row or column `grid-column: 1/-1`<br/>
+    <br/>
+
+  - `order` similar to flexbox<br/>
+    <br/>
+
+  - `justify-self` change child's alignment within the cell<br/>
+    <br/>
+
+- on parent and child<br/>
+    <br/>
+
+  - `grid-template-areas` can name each area of the grid. For [example](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas):
+
+<img src={cssGrid} alt='css grid' />
+
+```css
+#page {
+  display: grid;
+  width: 100%;
+  height: 250px;
+  grid-template-areas: "head head"
+                        "nav  main"
+                        "nav  foot";
+  grid-template-rows: 50px 1fr 30px;
+  grid-template-columns: 150px 1fr;
+}
+
+#page > header {
+  grid-area: head;
+  background-color: #8ca0ff;
+}
+
+#page > nav {
+  grid-area: nav;
+  background-color: #ffa08c;
+}
+
+#page > main {
+  grid-area: main;
+  background-color: #ffff64;
+}
+
+#page > footer {
+  grid-area: foot;
+  background-color: #8cffa0;
+}
+```
+
+

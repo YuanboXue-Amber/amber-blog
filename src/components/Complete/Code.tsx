@@ -8,7 +8,7 @@ const Code = ({ children }: Props) => {
   return (
     <code
       style={{
-        color: 'var(--clr-grey-4)',
+        color: 'var(--clr-bright-pumpkin)',
         fontSize: '1.25rem',
       }}
     >
