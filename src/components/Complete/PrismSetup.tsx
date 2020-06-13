@@ -43,6 +43,7 @@ const Pre = styled.pre`
   font-size: 0.9rem;
   font-family: 'Courier New', Courier, monospace;
   overflow-x: auto;
+  white-space: pre-wrap;
   .token-line {
     line-height: 1.5;
   }
