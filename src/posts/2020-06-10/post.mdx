@@ -8,13 +8,14 @@ readTime: 15
 tags: ['leetcode', 'math']
 ---
 import { Code, OrderedList } from '../../components/Complete';
+import d3img from './images/d3.svg'
 
 ### - Problem 593. Valid Square
-<br />
+
 Given the coordinates of four points in 2D space, return whether the four points could construct a square. <br />
 The coordinate (x,y) of a point is represented by an integer array with two integers. <br />
-<br />
-Example:  <br />
+
+Example:
 <Code>
 Input: p1 = [0,0], p2 = [1,1], p3 = [1,0], p4 = [0,1] <br />
 Output: True<br />
@@ -26,9 +27,21 @@ Note:
 2. A valid square has four equal sides with positive length and four equal angles (90-degree angles).
 3. Input points have no order.
 
-<br /><br />
+<br />
 
 ### - Solution
+
+We can sort all 4 points of the square based on x coordinate values. <br />
+The only possible cases are shown in the figure below:
+
+<img src={d3img} alt="Kiwi standing on oval" />
+
+In all these cases:
+1. `p0p1`, `p1p2`, `p3p2`, `p2p0` are four sides of the square
+2. `p0p3` and `p1p2` are the diagonals
+
+<br />Therefore we have the algorithm:
+
 ```js
 var validSquare = function (...p) {
   const dist = ([a, b], [c, d]) => {
@@ -37,7 +50,7 @@ var validSquare = function (...p) {
 
   // After sorting:
   // - p0p1 p1p3 p3p2 p2p0 forms the sides of square
-  // - p0p3 p1p2 forms the diagnoal
+  // - p0p3 p1p2 forms the diagonals
   p.sort((l1, l2) => (l2[0] == l1[0] ? l1[1] - l2[1] : l1[0] - l2[0]));
   return (
     dist(p[0], p[1]) != 0 &&
@@ -50,4 +63,111 @@ var validSquare = function (...p) {
 console.log(
   validSquare([1, 0], [-1, 0], [0, Math.sqrt(3)], [0, 0 - Math.sqrt(3)])
 );
+```
+**Time Complexity:** O(1)<br />
+
+<br />
+
+### - What if there're N points?
+
+What if we were given N points in the coordinates, and we need to count how many valid squares are there.<br />
+Of course, we can do it with brute force:
+```js
+let ans = 0;
+for(let i = 0; i < N; ++ i) {
+  for(let j = 0; j < N; ++ j) {
+    for(let k = 0; k < N; ++ k) {
+      for(let l = 0; l < N; ++ l) {
+        // For the current combination of ijkl,
+        // use the algorithm in the previous section to check if it is a valid square
+        if (validSquare(N[i], N[j], N[k], N[l])) ans ++;
+      }
+    }
+  }
+}
+return ans / 4; // each square has 4 points, and therefore we repeatedly count each square 4 times.
+```
+**Time Complexity:** O(N^4)<br />
+
+<p style="color: var(--clr-bright-pumpkin); font-size: 1.5rem;">But there're more efficient solutions.</p>
+For a square, if we already know 3 points, we can calculate the 4th point's coordinates. Then check if the 4th point is in the provided N points.<br />
+This way, we can reduce 4 for-loops to 3, and therefore lower the time complexity to O(N^3).
+<br />
+
+<br />
+<p style="color: var(--clr-bright-pumpkin); font-size: 1.5rem;">More over</p>
+
+We can consider any 2 points as a diagonal of a square.
+Therefore we can calculate the other 2 points, and then check if these 2 points are in the provided N points.<br />
+So now we reduced 3 for-loops to 2, and therefore get time complexity O(N^2)
+```js
+const findOther2pointsInSquare = (a, b, c, d) => {
+  // Assume [a, b] and [c, d] forms the diagonal of a square, with side length S.
+  // We need to find the other 2 points of the square, let's say one of them is x, y.
+  // We have:
+  // length of the side S^2 = (a-x)^2 + (b-y)^2, and S^2 = (c-x)^2 + (d-y)^2
+  // Also S^2 + S^2 = (length of diagonal)^2 = (a-c)^2 + (b-d)^2
+  // Therefore the other 2 points must be the solution to these 2 equations:
+  // (a-x)^2 + (b-y)^2 = (c-x)^2 + (d-y)^2
+  // (a-x)^2 + (b-y)^2 + (c-x)^2 + (d-y)^2 = (a-c)^2 + (b-d)^2
+  // It can be solved into:
+  // y = E-Fx, where:
+  // E = (a^2+b^2-c^2-d^2)/(2b-2d) F = (a-c)/(b-d)
+  // Then for x:
+  // (1+F^2)x^2 + (bF+dF-2EF-a-c)x + (E^2-bE-dE+ac+bd) = 0;
+  if (b == d) {
+    // special case
+    return [
+      [(a + c) / 2, (a - c) / 2],
+      [(a + c) / 2, (c - a) / 2],
+    ];
+  }
+  const E = (a ** 2 + b ** 2 - c ** 2 - d ** 2) / (2 * b - 2 * d);
+  const F = (a - c) / (b - d);
+  const I = 1 + F ** 2;
+  const J = b * F + d * F - 2 * E * F - a - c;
+  const H = E ** 2 - b * E - d * E + a * c + b * d;
+  const temp = Math.sqrt(J ** 2 - 4 * I * H);
+  const x1 = (-J + temp) / (2 * I);
+  const x2 = (-J - temp) / (2 * I);
+  const y1 = E - F * x1;
+  const y2 = E - F * x2;
+  return [
+    [x1, y1],
+    [x2, y2],
+  ];
+};
+
+var validSquareForNpoints = function (...p) {
+  // For this map, key is the x coordinate,
+  // and value is a Set, which stores all the y coordinates of the points that has this x coordinate.
+  const mapXtoYs = new Map();
+  p.forEach((point) => {
+    let ys = mapXtoYs.get(point[0]);
+    if (ys == null) ys = new Set();
+    ys.add(point[1]);
+    mapXtoYs.set(point[0], ys);
+  });
+
+  let ans = 0;
+  for (let i = 0; i < p.length; ++i) {
+    for (let j = i + 1; j < p.length; ++j) {
+      // calculate the coordinates of the other 2 points
+      const [a, b] = findOther2pointsInSquare(
+        p[i][0],
+        p[i][1],
+        p[j][0],
+        p[j][1]
+      );
+
+      // check if the other 2 points are provided
+      const axSet = mapXtoYs.get(a[0]);
+      const bxSet = mapXtoYs.get(b[0]);
+      if (axSet && axSet.has(a[1]) && bxSet && bxSet.has(b[1])) {
+        ans++; // if so, then we found a square
+      }
+    }
+  }
+  return ans / 2; // each diagonal is counted as a square, but each square has 2 diagonals
+};
 ```
