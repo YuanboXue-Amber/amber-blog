@@ -1,4 +1,3 @@
-import ToggleTheme from './ToggleTheme';
 import Links from '../constants/links';
 import SocialLinks from '../constants/socialLinks';
 import React from 'react';
@@ -17,7 +16,6 @@ const Navbar = ({ toggle }: Props) => {
           <Link to='/' className='nav-logo'>
             Amber Blog
           </Link>
-          <ToggleTheme styleClass='switch-theme' />
           <button className='toggle-btn' onClick={toggle}>
             <FaBars></FaBars>
           </button>

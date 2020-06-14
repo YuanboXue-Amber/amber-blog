@@ -1,4 +1,4 @@
-import Layout from '../components/Layout';
+import ThemedLayout from '../components/ThemedLayout';
 import Banner from '../components/Banner';
 import React from 'react';
 import { graphql, Link } from 'gatsby';
@@ -16,7 +16,7 @@ const PostTemplate = ({ data }: any) => {
   } = data;
 
   return (
-    <Layout>
+    <ThemedLayout>
       <Wrapper>
         <article className='post-body'>
           <Image className='post-head-img' fluid={image.childImageSharp.fluid} />
@@ -37,7 +37,7 @@ const PostTemplate = ({ data }: any) => {
           <Banner bannerPost={{ title: 'related', posts: nodes }} />
         </article>
       </Wrapper>
-    </Layout>
+    </ThemedLayout>
   );
 };
 

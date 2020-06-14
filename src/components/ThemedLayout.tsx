@@ -1,41 +1,85 @@
 /* eslint-disable no-undef */
-import React, { useState } from 'react';
+import Navbar from './Navbar';
+import Sidebar from './Sidebar';
+import Footer from './Footer';
 import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
 
 interface Props {
-  styleClass: string;
+  children: React.ReactNode;
 }
 
 export const defaultTheme = 'light';
+export const ThemeContext = React.createContext(defaultTheme);
 
-const ToggleTheme = ({ styleClass }: Props) => {
-  // eslint-disable-next-line no-undef
-  const [currTheme, setCurrTheme] = useState(localStorage.getItem('theme') || defaultTheme);
+/**
+ * I couldn't get the gatsby-plugin-dark-mode ThemeToggler.js import working in ts...
+ * So I write this component based on:
+ * https://github.com/insin/gatsby-plugin-dark-mode/blob/master/src/ThemeToggler.js
+ */
+const ThemedLayout = ({ children }: Props) => {
+  // theme
+  const [theme, setTheme] = useState(
+    typeof window !== 'undefined' ? (window as any).__theme : defaultTheme,
+  );
+
+  useEffect(() => {
+    (window as any).__onThemeChange = () => {
+      setTheme((window as any).__theme);
+    };
+    localStorage.setItem('theme', theme);
+    (window as any).__setPreferredTheme(theme);
+  });
 
   const onChange = () => {
-    if (currTheme == 'dark') {
-      setCurrTheme('light');
-      localStorage.setItem('theme', 'light');
+    if (theme == 'dark') {
+      setTheme('light');
     } else {
-      setCurrTheme('dark');
-      localStorage.setItem('theme', 'dark');
+      setTheme('dark');
     }
   };
 
+  // sidebar
+  const [isOpen, setIsOpen] = React.useState(false);
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <Wrapper className={styleClass}>
-      <input type='checkbox' checked={currTheme == 'dark'} onChange={onChange} />
-      <span className='switch__toggle'></span>
-    </Wrapper>
+    <ThemeContext.Provider value={theme}>
+      <div className='content'>
+        {/* theme toggle */}
+        <Wrapper>
+          <input type='checkbox' checked={theme == 'dark'} onChange={onChange} />
+          <span className='switch__toggle'></span>
+        </Wrapper>
+
+        {/* layout */}
+        <Sidebar isOpen={isOpen} toggle={toggle} />
+        <Navbar toggle={toggle} />
+        <main>{children}</main>
+      </div>
+      <Footer />
+    </ThemeContext.Provider>
   );
 };
 
 // This beautiful toggle botton is copied from https://codepen.io/garyb1/pen/WNQKZOr
 const Wrapper = styled.label`
   display: inline-flex;
-  align-items: center;
-  margin: 5px 0;
-  position: relative;
+  align-items: flex-end;
+  transform: scale(0.6);
+  position: absolute;
+  top: 0.2rem;
+  left: 55%;
+
+  @media (min-width: 768px) {
+    left: 75%;
+  }
+  @media (min-width: 992px) {
+    top: 0.4rem;
+    left: 90%;
+  }
 
   .switch__toggle {
     cursor: pointer;
@@ -126,4 +170,4 @@ const Wrapper = styled.label`
   }
 `;
 
-export default ToggleTheme;
+export default ThemedLayout;

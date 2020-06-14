@@ -1,4 +1,4 @@
-import Layout from '../components/Layout';
+import ThemedLayout from '../components/ThemedLayout';
 import Posts from '../components/Posts';
 import Hero from '../components/Hero';
 import React from 'react';
@@ -14,10 +14,10 @@ const CategoryTemplate = (props: any) => {
     },
   } = props;
   return (
-    <Layout>
+    <ThemedLayout>
       <Hero />
       <Posts posts={posts} title={`category / ${category}`} />
-    </Layout>
+    </ThemedLayout>
   );
 };
 

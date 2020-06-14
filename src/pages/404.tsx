@@ -1,9 +1,9 @@
-import Layout from '../components/Layout';
+import ThemedLayout from '../components/ThemedLayout';
 import React from 'react';
 import { Link } from 'gatsby';
 
 const NotFoundPage = () => (
-  <Layout>
+  <ThemedLayout>
     <section className='error-page'>
       <div className='page-center'>
         <span>404</span>
@@ -13,7 +13,7 @@ const NotFoundPage = () => (
         </Link>
       </div>
     </section>
-  </Layout>
+  </ThemedLayout>
 );
 
 export default NotFoundPage;

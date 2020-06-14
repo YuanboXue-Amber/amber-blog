@@ -1,4 +1,4 @@
-import Layout from '../components/Layout';
+import ThemedLayout from '../components/ThemedLayout';
 import Posts from '../components/Posts';
 import Hero from '../components/Hero';
 import SEO from '../components/SEO';
@@ -10,11 +10,11 @@ const IndexPage = ({ data }: any) => {
     allMdx: { nodes: posts },
   } = data;
   return (
-    <Layout>
+    <ThemedLayout>
       <SEO title={`Home`} />
       <Hero />
       <Posts posts={posts} title='recently published' />
-    </Layout>
+    </ThemedLayout>
   );
 };
 
