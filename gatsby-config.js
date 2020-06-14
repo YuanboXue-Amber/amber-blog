@@ -52,6 +52,10 @@ module.exports = {
             family: `Caveat`,
             variants: [`400`, `700`],
           },
+          {
+            family: `Inconsolata`,
+            variants: [`400`, `700`],
+          },
         ],
       },
     },

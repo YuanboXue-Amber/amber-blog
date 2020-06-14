@@ -41,7 +41,7 @@ const Pre = styled.pre`
   border-radius: var(--radius);
   margin: 3rem 0;
   font-size: 0.9rem;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: var(--ff-code);
   overflow-x: auto;
   white-space: pre-wrap;
   .token-line {

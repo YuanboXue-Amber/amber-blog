@@ -88,9 +88,13 @@ const Wrapper = styled.section`
   margin-top: 3rem;
   margin-bottom: 1rem;
   .post-body {
-    .btn {
-      margin-top: 4rem;
-    }
+    font-family: var(--ff-primary);
+
+    /*
+    ===============
+    Post head
+    ===============
+    */
     .post-head-img {
       max-height: 40vh;
     }
@@ -106,6 +110,7 @@ const Wrapper = styled.section`
         letter-spacing: var(--spacing);
       }
       h2 {
+        font-family: var(--ff-secondary);
         font-size: 2.5rem;
         margin: 1rem 0;
         letter-spacing: var(--spacing);
@@ -121,6 +126,37 @@ const Wrapper = styled.section`
           margin: auto 1rem;
         }
       }
+    }
+
+    /*
+    ===============
+    button at the bottom
+    ===============
+    */
+    .btn {
+      padding: 0.375rem 0.75rem;
+      text-transform: uppercase;
+      background: var(--clr-white);
+      color: var(--clr-primary-1);
+      letter-spacing: var(--spacing);
+      font-weight: 400;
+      font-size: 0.875rem;
+      border: 2px solid transparent;
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      border-radius: var(--radius);
+      -webkit-transition: var(--transition);
+      transition: var(--transition);
+    }
+    .btn:hover {
+      color: var(--clr-white);
+      background: var(--clr-primary-4);
+    }
+    .center-btn {
+      display: block;
+      width: 12rem;
+      text-align: center;
+      margin: 4rem auto 2rem auto;
     }
   }
   @media (min-width: 992px) {

@@ -13,5 +13,6 @@ const Wrapper = styled.h2`
   margin: 1rem 0;
   letter-spacing: var(--spacing);
   font-weight: 700;
+  font-family: var(--ff-secondary);
 `;
 export default Headings3;

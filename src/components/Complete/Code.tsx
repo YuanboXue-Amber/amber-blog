@@ -9,7 +9,7 @@ const Code = ({ children }: Props) => {
   return <Wrapper>{children}</Wrapper>;
 };
 const Wrapper = styled.code`
-  font-family: 'Courier New', Courier, monospace;
+  font-family: var(--ff-code);
   color: var(--clr-bright-pumpkin);
 `;
 export default Code;

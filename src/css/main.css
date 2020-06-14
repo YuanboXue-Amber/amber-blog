@@ -11,6 +11,8 @@ Variables
   --ff-primary: 'Roboto', sans-serif;
   /* for headings and titles */
   --ff-secondary: 'Open Sans', sans-serif;
+  /* for code */
+  --ff-code: 'Inconsolata', monospace;
   /* for logo */
   --ff-logo: 'Caveat', sans-serif;
 
@@ -125,38 +127,6 @@ iframe {
   iframe {
     width: 60vw;
   }
-}
-
-/*
-===============
-button
-===============
-*/
-.btn {
-  text-transform: uppercase;
-  background: var(--clr-white);
-  color: var(--clr-primary-1);
-  padding: 0.375rem 0.75rem;
-  letter-spacing: var(--spacing);
-  display: inline-block;
-  font-weight: 400;
-  -webkit-transition: var(--transition);
-  transition: var(--transition);
-  font-size: 0.875rem;
-  border: 2px solid transparent;
-  cursor: pointer;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  border-radius: var(--radius);
-}
-.btn:hover {
-  color: var(--clr-white);
-  background: var(--clr-primary-4);
-}
-.center-btn {
-  display: block;
-  width: 12rem;
-  text-align: center;
-  margin: 3rem auto;
 }
 
 /*
