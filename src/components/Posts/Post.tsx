@@ -54,7 +54,7 @@ const Wrapper = styled.article`
     font-weight: 700;
     border-radius: var(--radius);
     letter-spacing: var(--spacing);
-    color: var(--clr-white);
+    color: var(--clr-bg);
   }
   h3 {
     color: var(--clr-primary-1);

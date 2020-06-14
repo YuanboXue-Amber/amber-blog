@@ -23,7 +23,7 @@ const Wrapper = styled.div`
     text-transform: uppercase;
     letter-spacing: var(--spacing);
     font-weight: 500;
-    background: var(--clr-white);
+    background: var(--clr-bg);
     display: inline-block;
     margin-bottom: 0;
     padding: 0 0.6rem;

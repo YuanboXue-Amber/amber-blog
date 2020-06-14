@@ -103,7 +103,7 @@ const Wrapper = styled.section`
       text-align: center;
       span {
         background: var(--clr-primary-4);
-        color: var(--clr-white);
+        color: var(--clr-bg);
         border-radius: var(--radius);
         padding: 0.25rem 0.5rem;
         text-transform: uppercase;
@@ -136,7 +136,7 @@ const Wrapper = styled.section`
     .btn {
       padding: 0.375rem 0.75rem;
       text-transform: uppercase;
-      background: var(--clr-white);
+      background: var(--clr-bg);
       color: var(--clr-primary-1);
       letter-spacing: var(--spacing);
       font-weight: 400;
@@ -149,7 +149,7 @@ const Wrapper = styled.section`
       transition: var(--transition);
     }
     .btn:hover {
-      color: var(--clr-white);
+      color: var(--clr-bg);
       background: var(--clr-primary-4);
     }
     .center-btn {

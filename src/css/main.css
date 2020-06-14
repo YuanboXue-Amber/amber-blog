@@ -3,18 +3,34 @@
 Variables
 ===============
 */
+/* dark theme */
+body.dark {
+  --clr-bg: #292F36;
+  --clr-bg-transparent: #292F36aa;
 
-:root {
-  /* fonts and text*/
-  --spacing: 0.1rem;
-  /* for body */
-  --ff-primary: 'Roboto', sans-serif;
-  /* for headings and titles */
-  --ff-secondary: 'Open Sans', sans-serif;
-  /* for code */
-  --ff-code: 'Inconsolata', monospace;
-  /* for logo */
-  --ff-logo: 'Caveat', sans-serif;
+  /* darkest grey - used for headings */
+  --clr-grey-1: #DBDBDB;
+  --clr-grey-3: #D9D9D9;
+  --clr-grey-4: #b9b9b9;
+  --clr-grey-5: #464646;
+
+  --clr-primary-1: #EDB3D2;
+  --clr-primary-2: #E28FBC;
+  --clr-primary-3: #9E6985;
+  --clr-primary-4: #896176;
+
+  --clr-turquoise: #DE9796;
+  --clr-pink: #769e89;
+
+  --clr-bright-pumpkin: #0D9BE6;
+  --clr-bright-lime: #3810FF;
+
+  background-color: var(--clr-bg);
+}
+
+body {
+  --clr-bg: #fff;
+  --clr-bg-transparent: #ffffffaa;
 
   /* colors */
   /* darkest grey - used for headings */
@@ -28,12 +44,30 @@ Variables
   --clr-primary-3: #61967a;
   --clr-primary-4: #769e89;
 
-  --clr-white: #fff;
   --clr-turquoise: #216869;
   --clr-pink: #d4a0a7;
 
   --clr-bright-pumpkin: #F26419;
   --clr-bright-lime: #c7ef00;
+
+  background-color: var(--clr-bg);
+}
+
+/* default light theme */
+:root {
+  /* fonts and text*/
+  --spacing: 0.1rem;
+  /* for body */
+  --ff-primary: 'Roboto', sans-serif;
+  /* for headings and titles */
+  --ff-secondary: 'Open Sans', sans-serif;
+  /* for code */
+  --ff-code: 'Inconsolata', monospace;
+  /* for logo */
+  --ff-logo: 'Caveat', sans-serif;
+
+  /* colors */
+  --clr-white: #fff;
 
   /* others */
   --transition: all 0.3s linear;
@@ -55,7 +89,7 @@ Global Styles
 }
 body {
   font-family: var(--ff-primary);
-  background: var(--clr-white);
+  background: var(--clr-bg);
   color: var(--clr-grey-1);
   line-height: 1.5;
   font-size: 1.0625rem;
@@ -154,7 +188,7 @@ Navbar
   height: 5rem;
   display: flex;
   align-items: center;
-  background: #ffffffaa;
+  background: var(--clr-bg-transparent);
 }
 .nav-center {
   width: 90vw;
@@ -185,7 +219,9 @@ Navbar
   cursor: pointer;
   transition: var(--transition);
 }
-
+.switch-theme {
+  transform: scale(0.6);
+}
 .nav-links {
   display: none;
 }
@@ -220,7 +256,7 @@ Navbar
   }
   .page-link:hover {
     background: var(--clr-primary-4);
-    color: var(--clr-white);
+    color: var(--clr-bg);
   }
 
   .nav-icons {
@@ -260,7 +296,7 @@ Sidebar
   margin-bottom: 1.5rem;
 }
 .sidebar-links .page-link {
-  color: var(--clr-white);
+  color: var(--clr-bg);
   letter-spacing: var(--spacing);
   font-size: 1.5rem;
   display: block;
@@ -271,7 +307,7 @@ Sidebar
   margin: 1rem 0;
 }
 .sidebar .category {
-  color: var(--clr-white);
+  color: var(--clr-bg);
   letter-spacing: var(--spacing);
   font-weight: 700;
   text-transform: capitalize;
@@ -288,7 +324,7 @@ Sidebar
   border: transparent;
   font-size: 3rem;
   cursor: pointer;
-  color: var(--clr-white);
+  color: var(--clr-bg);
 }
 
 @media screen and (min-width: 700px) {
@@ -368,7 +404,7 @@ Footer
 }
 .footer h4 {
   margin-bottom: 0;
-  color: var(--clr-white);
+  color: var(--clr-bg);
   text-transform: uppercase;
   letter-spacing: var(--spacing);
 }

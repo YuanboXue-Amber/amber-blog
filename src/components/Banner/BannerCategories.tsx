@@ -25,7 +25,7 @@ const Wrapper = styled.div`
   }
   .category:hover {
     background: var(--clr-primary-4);
-    color: var(--clr-white);
+    color: var(--clr-bg);
   }
 `;
 

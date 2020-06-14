@@ -66,12 +66,12 @@ const Wrapper = styled.blockquote`
     position: absolute;
     top: 0;
     left: -3px;
-    background: var(--clr-white);
+    background: var(--clr-bg);
     transform: translate(-50%, -50%);
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 6px solid var(--clr-white);
+    border: 6px solid var(--clr-bg);
   }
   .info {
     background: var(--clr-primary-10);
