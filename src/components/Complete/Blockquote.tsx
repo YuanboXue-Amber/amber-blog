@@ -49,10 +49,10 @@ const Wrapper = styled.blockquote`
   .container {
     font-size: 1.0625rem;
     padding: 2rem 1.5rem;
-    background: var(--clr-grey-10);
+    background: var(--clr-bg);
     border-radius: var(--radius);
-    color: var(--clr-grey-1);
-    border-left: 3px solid var(--clr-grey-5);
+    color: var(--clr-text-primary);
+    border-left: 3px solid var(--clr-text-background);
     position: relative;
     margin: 2rem 0;
   }
@@ -74,8 +74,8 @@ const Wrapper = styled.blockquote`
     border: 6px solid var(--clr-bg);
   }
   .info {
-    background: var(--clr-primary-10);
-    color: var(--clr-primary-1);
+    background: var(--clr-text-secondary-alternate0);
+    color: var(--clr-text-secondary-alternate);
     border-color: var(--clr-primary-5);
     .icon {
       color: var(--clr-primary-5);
@@ -97,7 +97,7 @@ const Wrapper = styled.blockquote`
       align-items: center;
     }
     font-style: italic;
-    color: var(--clr-grey-5);
+    color: var(--clr-text-secondary);
     line-height: 1.8;
     word-spacing: 3px;
     font-size: 1.2rem;

@@ -5,25 +5,25 @@ Variables
 */
 /* dark theme */
 body.dark {
-  --clr-bg: #292F36;
-  --clr-bg-transparent: #292F36aa;
+  --clr-bg: #0D101A;
+  --clr-bg-transparent: #0D101Aaa;
 
-  /* darkest grey - used for headings */
-  --clr-grey-1: #DBDBDB;
-  --clr-grey-3: #D9D9D9;
-  --clr-grey-4: #b9b9b9;
-  --clr-grey-5: #464646;
+  /* colors */
+  /* darkest grey - used for body text */
+  --clr-text-primary: #FAFFFD;
+  /* second dark grey - used for less important text, for example text on the side */
+  --clr-text-secondary: #b9b9b9;
+  /* used as background for white text */
+  --clr-text-background: #b9b9b9;
 
-  --clr-primary-1: #EDB3D2;
-  --clr-primary-2: #E28FBC;
-  --clr-primary-3: #9E6985;
-  --clr-primary-4: #896176;
+  /* alternate color for body text */
+  --clr-text-primary-alternate: #E5D0E3;
+  /* alternate color for heading text */
+  --clr-text-secondary-alternate: #AEE5D8;
 
-  --clr-turquoise: #DE9796;
-  --clr-pink: #769e89;
+  --clr-background-alternate: #87A8A0;
 
-  --clr-bright-pumpkin: #0D9BE6;
-  --clr-bright-lime: #3810FF;
+  --clr-text-code: #ED8953;
 
   background-color: var(--clr-bg);
 }
@@ -33,22 +33,21 @@ body {
   --clr-bg-transparent: #ffffffaa;
 
   /* colors */
-  /* darkest grey - used for headings */
-  --clr-grey-1: #242424;
-  --clr-grey-3: #262626;
-  --clr-grey-4: #8c8c8c;
-  --clr-grey-5: #b9b9b9;
+  /* darkest grey - used for body text */
+  --clr-text-primary: #242424;
+  /* second dark grey - used for less important text, for example text on the side */
+  --clr-text-secondary: #8c8c8c;
+  /* used as background for white text */
+  --clr-text-background: #b9b9b9;
 
-  --clr-primary-1: #124c2d;
-  --clr-primary-2: #1d7043;
-  --clr-primary-3: #61967a;
-  --clr-primary-4: #769e89;
+  /* alternate color for body text */
+  --clr-text-primary-alternate: #769e89;
+  /* alternate color for heading text */
+  --clr-text-secondary-alternate: #124c2d;
 
-  --clr-turquoise: #216869;
-  --clr-pink: #d4a0a7;
+  --clr-background-alternate: #d4a0a7;
 
-  --clr-bright-pumpkin: #F26419;
-  --clr-bright-lime: #c7ef00;
+  --clr-text-code: #F26419;
 
   background-color: var(--clr-bg);
 }
@@ -90,7 +89,7 @@ Global Styles
 body {
   font-family: var(--ff-primary);
   background: var(--clr-bg);
-  color: var(--clr-grey-1);
+  color: var(--clr-text-primary);
   line-height: 1.5;
   font-size: 1.0625rem;
 }
@@ -169,13 +168,13 @@ Social icons
 ===============
 */
 .social-icon {
-  color: var(--clr-pink);
+  color: var(--clr-background-alternate);
   font-size: 1.75rem;
   transition: var(--transition);
   margin-left: 0.5rem;
 }
 .social-icon:hover {
-  color: var(--clr-bright-pumpkin);
+  color: var(--clr-text-code);
   transform: translateY(-5px);
 }
 
@@ -206,7 +205,7 @@ Navbar
   font-size: 2rem;
   text-transform: uppercase;
   letter-spacing: var(--spacing);
-  color: var(--clr-primary-4);
+  color: var(--clr-text-primary-alternate);
   font-weight: bold;
   font-family: var(--ff-logo);
 }
@@ -215,7 +214,7 @@ Navbar
   font-size: 2rem;
   background: transparent;
   border-color: transparent;
-  color: var(--clr-primary-4);
+  color: var(--clr-text-primary-alternate);
   cursor: pointer;
   transition: var(--transition);
 }
@@ -245,7 +244,7 @@ Navbar
   }
   .page-link {
     margin-right: 1rem;
-    color: var(--clr-grey-1);
+    color: var(--clr-text-primary);
     letter-spacing: var(--spacing);
     font-size: 1.25rem;
     transition: var(--transition);
@@ -255,7 +254,7 @@ Navbar
     border-radius: var(--radius);
   }
   .page-link:hover {
-    background: var(--clr-primary-4);
+    background: var(--clr-text-primary-alternate);
     color: var(--clr-bg);
   }
 
@@ -276,7 +275,7 @@ Sidebar
   left: 0;
   width: 100vw;
   height: 100%;
-  background: var(--clr-primary-4);
+  background: var(--clr-text-primary-alternate);
   transition: var(--transition);
   display: grid;
   align-items: flex-start;
@@ -352,7 +351,7 @@ Posts Component
   justify-content: center;
   font-weight: 700;
   text-transform: uppercase;
-  color: var(--clr-pink);
+  color: var(--clr-background-alternate);
   letter-spacing: var(--spacing);
   margin-bottom: 2.5rem;
 }
@@ -381,7 +380,7 @@ Footer
 .footer {
   height: 7rem;
   text-align: center;
-  background: var(--clr-primary-4);
+  background: var(--clr-text-primary-alternate);
   display: grid;
   place-items: center;
 }

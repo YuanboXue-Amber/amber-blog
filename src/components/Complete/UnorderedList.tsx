@@ -14,7 +14,7 @@ const Wrapper = styled.ul`
   li:before {
     display: inline-block;
     content: '\u25cf';
-    color: var(--clr-primary-4);
+    color: var(--clr-text-primary-alternate);
     font-weight: bolder;
     width: 1rem;
     margin-left: -1rem;

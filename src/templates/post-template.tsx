@@ -102,7 +102,7 @@ const Wrapper = styled.section`
       margin: 2rem 0 4rem 0;
       text-align: center;
       span {
-        background: var(--clr-primary-4);
+        background: var(--clr-text-primary-alternate);
         color: var(--clr-bg);
         border-radius: var(--radius);
         padding: 0.25rem 0.5rem;
@@ -117,7 +117,7 @@ const Wrapper = styled.section`
         font-weight: 700;
       }
       p {
-        color: var(--clr-grey-4);
+        color: var(--clr-text-secondary);
       }
       .date {
         display: flex;
@@ -137,7 +137,7 @@ const Wrapper = styled.section`
       padding: 0.375rem 0.75rem;
       text-transform: uppercase;
       background: var(--clr-bg);
-      color: var(--clr-primary-1);
+      color: var(--clr-text-secondary-alternate);
       letter-spacing: var(--spacing);
       font-weight: 400;
       font-size: 0.875rem;
@@ -150,7 +150,7 @@ const Wrapper = styled.section`
     }
     .btn:hover {
       color: var(--clr-bg);
-      background: var(--clr-primary-4);
+      background: var(--clr-text-primary-alternate);
     }
     .center-btn {
       display: block;

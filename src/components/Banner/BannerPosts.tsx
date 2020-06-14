@@ -51,16 +51,16 @@ const Wrapper = styled.div`
     margin-bottom: 0.25rem;
     letter-spacing: 0;
     line-height: 1.2;
-    color: var(--clr-grey-1);
+    color: var(--clr-text-primary);
   }
   p {
     font-size: 0.6rem;
     margin-bottom: 0;
-    color: var(--clr-grey-5);
+    color: var(--clr-text-background);
   }
   .post:hover {
     h5 {
-      color: var(--clr-pink);
+      color: var(--clr-background-alternate);
     }
   }
 `;

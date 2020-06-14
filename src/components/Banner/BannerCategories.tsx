@@ -15,7 +15,7 @@ const BannerCategories = () => {
 const Wrapper = styled.div`
   .category {
     font-size: 1rem;
-    color: var(--clr-grey-4);
+    color: var(--clr-text-secondary);
     text-transform: capitalize;
     display: block;
     padding: 0.5rem 0 0.5rem 1rem;
@@ -24,7 +24,7 @@ const Wrapper = styled.div`
     border-radius: var(--radius);
   }
   .category:hover {
-    background: var(--clr-primary-4);
+    background: var(--clr-text-primary-alternate);
     color: var(--clr-bg);
   }
 `;

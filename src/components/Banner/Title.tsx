@@ -19,7 +19,7 @@ const Wrapper = styled.div`
   text-align: center;
   margin-bottom: 1.25rem;
   h4 {
-    color: var(--clr-primary-1);
+    color: var(--clr-text-secondary-alternate);
     text-transform: uppercase;
     letter-spacing: var(--spacing);
     font-weight: 500;
@@ -35,7 +35,7 @@ const Wrapper = styled.div`
     width: 100%;
     height: 1.5px;
     transform: translateY(-50%);
-    background: var(--clr-primary-1);
+    background: var(--clr-text-secondary-alternate);
     z-index: -1;
   }
 `;

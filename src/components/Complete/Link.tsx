@@ -18,12 +18,12 @@ const Wrapper = styled.a`
   display: inline-block;
   text-decoration: none;
   position: relative;
-  color: var(--clr-primary-4);
+  color: var(--clr-text-primary-alternate);
 
   &:visited,
   &:hover,
   &:active {
-    color: var(--clr-primary-4);
+    color: var(--clr-text-primary-alternate);
   }
 
   &::after {
@@ -44,7 +44,7 @@ const Wrapper = styled.a`
     display: block;
     position: absolute;
     content: ' ';
-    background-color: var(--clr-pink);
+    background-color: var(--clr-background-alternate);
   }
 `;
 export default Link;

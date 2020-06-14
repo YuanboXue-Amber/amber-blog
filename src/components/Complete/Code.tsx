@@ -10,6 +10,6 @@ const Code = ({ children }: Props) => {
 };
 const Wrapper = styled.code`
   font-family: var(--ff-code);
-  color: var(--clr-bright-pumpkin);
+  color: var(--clr-text-code);
 `;
 export default Code;

@@ -89,13 +89,13 @@ return ans / 4; // each square has 4 points, and therefore we repeatedly count e
 ```
 **Time Complexity:** O(N^4)<br />
 
-<p style="color: var(--clr-bright-pumpkin); font-size: 1.5rem;">But there're more efficient solutions.</p>
+<p style="color: var(--clr-text-code); font-size: 1.5rem;">But there're more efficient solutions.</p>
 For a square, if we already know 3 points, we can calculate the 4th point's coordinates. Then check if the 4th point is in the provided N points.<br />
 This way, we can reduce 4 for-loops to 3, and therefore lower the time complexity to O(N^3).
 <br />
 
 <br />
-<p style="color: var(--clr-bright-pumpkin); font-size: 1.5rem;">More over</p>
+<p style="color: var(--clr-text-code); font-size: 1.5rem;">More over</p>
 
 We can consider any 2 points as a diagonal of a square.
 Therefore we can calculate the other 2 points, and then check if these 2 points are in the provided N points.<br />

@@ -19,7 +19,7 @@ const Wrapper = styled.ol`
     content: counter(item);
     margin-right: 0.5rem;
     font-size: 80%;
-    background-color: var(--clr-primary-4);
+    background-color: var(--clr-text-primary-alternate);
     color: white;
     font-weight: bold;
     padding: 2px 5px;

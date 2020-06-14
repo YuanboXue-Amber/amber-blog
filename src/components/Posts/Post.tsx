@@ -48,7 +48,7 @@ const Wrapper = styled.article`
   .category {
     display: inline-block;
     margin-bottom: 1rem;
-    background: var(--clr-grey-5);
+    background: var(--clr-text-background);
     padding: 0.25rem 0.5rem;
     text-transform: uppercase;
     font-weight: 700;
@@ -57,7 +57,7 @@ const Wrapper = styled.article`
     color: var(--clr-bg);
   }
   h3 {
-    color: var(--clr-primary-1);
+    color: var(--clr-text-secondary-alternate);
     font-weight: 700;
     letter-spacing: var(--spacing);
     margin-bottom: 1rem;
@@ -66,19 +66,19 @@ const Wrapper = styled.article`
   .underline {
     width: 5rem;
     height: 1px;
-    background: var(--clr-grey-5);
+    background: var(--clr-text-background);
     margin: 0 auto;
     margin-bottom: 1rem;
   }
   p {
-    color: var(--clr-grey-1);
+    color: var(--clr-text-primary);
     line-height: 1.8;
   }
   .link {
     text-transform: uppercase;
     letter-spacing: var(--spacing);
     font-weight: 700;
-    color: var(--clr-primary-2);
+    color: var(--clr-text-secondary-alternate);
     margin-top: 0.5rem;
     display: flex;
     align-items: center;
@@ -89,22 +89,22 @@ const Wrapper = styled.article`
     }
   }
   .link:hover {
-    color: var(--clr-pink);
+    color: var(--clr-background-alternate);
   }
   footer {
     margin-top: 1rem;
     padding-top: 1rem;
-    border-top: 1px solid var(--clr-grey-5);
+    border-top: 1px solid var(--clr-text-background);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: var(--clr-grey-4);
+    color: var(--clr-text-secondary);
 
     & .date {
       display: flex;
       align-items: center;
       & .icon {
-        color: var(--clr-grey-4);
+        color: var(--clr-text-secondary);
         margin-right: 0.5rem;
       }
     }
