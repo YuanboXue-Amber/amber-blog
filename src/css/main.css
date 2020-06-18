@@ -5,25 +5,25 @@ Variables
 */
 /* dark theme */
 body.dark {
-  --clr-bg: #0D101A;
-  --clr-bg-transparent: #0D101Aaa;
+  --clr-bg: #0d101a;
+  --clr-bg-transparent: #0d101aaa;
 
   /* colors */
   /* darkest grey - used for body text */
-  --clr-text-primary: #FAFFFD;
+  --clr-text-primary: #fafffd;
   /* second dark grey - used for less important text, for example text on the side */
   --clr-text-secondary: #b9b9b9;
   /* used as background for white text */
   --clr-text-background: #b9b9b9;
 
   /* alternate color for body text */
-  --clr-text-primary-alternate: #E5D0E3;
+  --clr-text-primary-alternate: #e5d0e3;
   /* alternate color for heading text */
-  --clr-text-secondary-alternate: #AEE5D8;
+  --clr-text-secondary-alternate: #aee5d8;
 
-  --clr-background-alternate: #87A8A0;
+  --clr-background-alternate: #87a8a0;
 
-  --clr-text-code: #ED8953;
+  --clr-text-code: #ed8953;
 
   background-color: var(--clr-bg);
 }
@@ -47,7 +47,7 @@ body {
 
   --clr-background-alternate: #d4a0a7;
 
-  --clr-text-code: #F26419;
+  --clr-text-code: #f26419;
 
   background-color: var(--clr-bg);
 }

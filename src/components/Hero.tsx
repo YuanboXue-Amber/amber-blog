@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 import { ThemeContext } from './ThemedLayout';
 // @ts-ignore
