@@ -1,6 +1,5 @@
 import ThemedLayout from '../components/ThemedLayout';
 import Posts from '../components/Posts';
-import Hero from '../components/Hero';
 import React from 'react';
 import { graphql } from 'gatsby';
 
@@ -9,8 +8,7 @@ const PostsPage = ({ data }: any) => {
     allMdx: { nodes: posts },
   } = data;
   return (
-    <ThemedLayout>
-      <Hero />
+    <ThemedLayout displayHero={true}>
       <Posts posts={posts} title='all posts' />
     </ThemedLayout>
   );

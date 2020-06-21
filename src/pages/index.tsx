@@ -1,6 +1,5 @@
 import ThemedLayout from '../components/ThemedLayout';
 import Posts from '../components/Posts';
-import Hero from '../components/Hero';
 import SEO from '../components/SEO';
 import React from 'react';
 import { graphql } from 'gatsby';
@@ -10,9 +9,8 @@ const IndexPage = ({ data }: any) => {
     allMdx: { nodes: posts },
   } = data;
   return (
-    <ThemedLayout>
+    <ThemedLayout displayHero={true}>
       <SEO title={`Home`} />
-      <Hero />
       <Posts posts={posts} title='recently published' />
     </ThemedLayout>
   );

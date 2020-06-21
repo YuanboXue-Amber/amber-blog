@@ -2,11 +2,13 @@
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
+import Hero from './Hero';
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 
 interface Props {
   children: React.ReactNode;
+  displayHero?: boolean;
 }
 
 export const defaultTheme = 'light';
@@ -17,7 +19,7 @@ export const ThemeContext = React.createContext(defaultTheme);
  * So I write this component based on:
  * https://github.com/insin/gatsby-plugin-dark-mode/blob/master/src/ThemeToggler.js
  */
-const ThemedLayout = ({ children }: Props) => {
+const ThemedLayout = ({ children, displayHero }: Props) => {
   // theme
   const [theme, setTheme] = useState(
     typeof window !== 'undefined' ? (window as any).__theme : defaultTheme,
@@ -57,6 +59,7 @@ const ThemedLayout = ({ children }: Props) => {
         {/* layout */}
         <Sidebar isOpen={isOpen} toggle={toggle} />
         <Navbar toggle={toggle} />
+        {displayHero && <Hero />}
         <main>{children}</main>
       </div>
       <Footer />
