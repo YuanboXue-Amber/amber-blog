@@ -71,13 +71,12 @@ const ThemedLayout = ({ children, displayHero }: Props) => {
 const Wrapper = styled.label`
   display: inline-flex;
   align-items: flex-end;
-  transform: scale(0.6);
+  transform: translateX(-1rem) scale(0.6);
   position: absolute;
-  top: 0.2rem;
-  left: 55%;
+  left: 60%;
 
   @media (min-width: 768px) {
-    left: 75%;
+    left: 70%;
   }
   @media (min-width: 992px) {
     top: 0.4rem;
