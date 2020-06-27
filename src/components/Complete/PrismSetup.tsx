@@ -21,11 +21,14 @@ const PrismWrapper = (props: any) => {
             <Pre className={className} style={style}>
               <div className='code-tab'>{language}</div>
               {tokens.map((line, i) => (
-                <div {...getLineProps({ line, key: i })}>
-                  {line.map((token, key) => (
-                    <span {...getTokenProps({ token, key })} />
-                  ))}
-                </div>
+                <Line key={i} {...getLineProps({ line, key: i })}>
+                  <LineNo>{i + 1}</LineNo>
+                  <LineContent>
+                    {line.map((token, key) => (
+                      <span key={key} {...getTokenProps({ token, key })} />
+                    ))}
+                  </LineContent>
+                </Line>
               ))}
             </Pre>
           </Container>
@@ -34,7 +37,27 @@ const PrismWrapper = (props: any) => {
     </Highlight>
   );
 };
+
 // Styling Only
+const Line = styled.div`
+  display: table-row;
+`;
+
+const LineNo = styled.span`
+  display: table-cell;
+  text-align: right;
+  padding-right: 1em;
+  user-select: none;
+  opacity: 0.5;
+  @media (min-width: 992px) {
+    display: none;
+  }
+`;
+
+const LineContent = styled.span`
+  display: table-cell;
+`;
+
 const Pre = styled.pre`
   background: #1e1e1e;
   padding: 1rem 1.5rem;
