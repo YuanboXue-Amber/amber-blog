@@ -1,0 +1,329 @@
+---
+title: LeetCode 706 - Design HashMap
+slug: leetcode-706-hashmap
+image: ./images/bucket-flower.jpg
+date: 2020-06-27
+category: LeetCode
+readTime: 15
+tags: ['leetcode', 'hashmap']
+---
+import hashmapImg from './images/hashmap.jpg'
+import LRUImg from './images/LRU.jpg'
+
+<blockquote >
+Before I went into this problem, I never realized, the implementation of HashMap has so many aspects to it.
+</blockquote>
+
+### - Problem 706. Design HashMap
+
+Design a HashMap without using any built-in hash table libraries.
+
+To be specific, your design should include these functions:
+
+- `put(key, value)`: Insert a (key, value) pair into the HashMap. If the value already exists in the HashMap, update the value.
+- `get(key)`: Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key.
+- `remove(key)`: Remove the mapping for the value key if this map contains the mapping for the key.
+
+<br />
+
+### - Solution
+I will go thru the basic data structure, and implementing the commonly used methods in HashMap. However this post will not be able to cover every details of HashMap.
+
+#### Data structure of HashMap
+
+<img src={hashmapImg} alt="hashmap data structure" />
+
+This is the basic data structure of a HashMap.<br />
+When we need to locate an element in HashMap, for example `35`:
+1. locate the bucket the element is in: `35 % 16 = 3`
+2. go to bucket 3, and search the linked list for element `35`
+
+<br />
+JDK 1.8 introduced red-black tree. When the linked list in the bucket is too long, it will be organized into a red-black tree to increase time efficiency.
+
+#### Singly Linked List
+This post will implement HashMap using array+Singly linked list, and will not explorer more on red-black tree.
+Here's the implementation of singly linkede list for reference:
+
+```js
+/**
+ * One node in the linked list
+ * @class Node
+ */
+class Node {
+  constructor(key, val) {
+    this.key = key; // nodes with the same hash(key) will be in the same bucket
+    this.val = val;
+    this.next = null;
+  }
+}
+
+class SinglyLinkedList {
+  constructor() {
+    this.head = new Node(0); // use an extra head, so it's easier to add/delete node
+    this.tail = this.head;
+    this.len = 0;
+  }
+
+  /**
+   * Could be called when adding new element in hashmap
+   *
+   * @param {*} node
+   * @memberof SinglyLinkedList
+   */
+  addToTail(node) {
+    this.tail.next = node;
+    this.tail = this.tail.next;
+    this.len = this.len + 1;
+  }
+
+  /**
+   * Could be called when updating an existing element in hashmap
+   *
+   * @param {*} key
+   * @param {*} val
+   * @returns
+   * @memberof SinglyLinkedList
+   */
+  updateNode(key, val) {
+    const node = this.searchNode(key);
+    if (node == null) return null;
+    node.val = val;
+    return node;
+  }
+
+  /**
+   * Search if a node in the linked list has node.key == key.
+   * When remove is true, also remove this node
+   *
+   * @param {*} key
+   * @param {boolean} [remove=false]
+   * @returns if a node with node.key == key is found, return the node;
+   * otherwise return null;
+   * @memberof SinglyLinkedList
+   */
+  searchNode(key, remove = false) {
+    if (this.len == 0) return null;
+
+    let prev = this.head;
+    let node = this.head.next;
+    while (node) {
+      if (node.key == key) {
+        if (remove) {
+          prev.next = node.next;
+          if (node == this.tail) {
+            this.tail = prev;
+          }
+          this.len = this.len - 1;
+        }
+        return node;
+      }
+      prev = node;
+      node = node.next;
+    }
+    return null;
+  }
+}
+```
+
+#### Commonly used methods
+
+<p style="color: var(--clr-text-code); font-size: 1.5rem;">Constructor</p>
+
+The most commonly used Constructor is the simple one without any parameter: `HashMap()`.<br/>
+But there are more Constructors, which takes these 2 parameters: `initialCapacity` and `loadFactor`.
+
+- initialCapacity<br />
+  How big your HashMap initally is. In other words, how many buckets do you want. By default, it is 16.
+  <br /><br />
+
+- loadFactor<br />
+  How full your HashMap can be. By default it is 0.75. <br />
+  When your HashMap has more `key, value` pairs than allowed by loadFactor, HashMap will `resize`. It will `resize` to the smallest power of 2, that is bigger than the current capacity.
+
+```js
+constructor() {
+  this.capacity = 16; // start with 16 buckets
+  this.container = new Array(this.capacity);
+  this.loadNum = 0; // this.loadNum / this.capacity represents the 'fullness' of hashmap
+  this.loadFactorMax = 0.75; // hashmap can't be more full than 0.75
+}
+
+hash(key) {
+  return key % this.capacity;
+}
+```
+
+<p style="color: var(--clr-text-code); font-size: 1.5rem;">get(key)</p>
+
+Search an element in the map is simple. Just need to locate the bucket, then search along its SinglyLinkedList.
+
+```js
+/**
+ * Returns the value to which the specified key is mapped,
+ * or -1 if this map contains no mapping for the key
+ * @param {number} key
+ * @return {number}
+ */
+get(key) {
+  const e = this.getNode(this.hash(key), key);
+  return e == null ? -1 : e.val;
+}
+
+getNode(hash, key) {
+  const bucket = this.container[hash];
+  if (bucket == null) return null;
+  return bucket.searchNode(key);
+}
+```
+
+<p style="color: var(--clr-text-code); font-size: 1.5rem;">remove(key)</p>
+
+Similar as `get(key)`, but instead of returning the element, remove the element from the SinglyLinkedList.
+
+```js
+/**
+ * Removes the mapping of the specified value key if this map contains a mapping for the key
+ * @param {number} key
+ * @return {void}
+ */
+remove(key) {
+  const bucket = this.container[this.hash(key)];
+  if (bucket == null) return;
+  bucket.searchNode(key, true);
+}
+```
+
+<p style="color: var(--clr-text-code); font-size: 1.5rem;">put(key, value)</p>
+
+Similar to `get(key)` and `remove(key)`. First locate the bucket, and then operate on its SinglyLinkedList.
+
+```js
+/**
+ * @param {number} key
+ * @param {number} value
+ * @return {void}
+ */
+put(key, value) {
+  const hash = this.hash(key);
+  const bucket = this.container[hash]; // locate the bucket
+
+  if (bucket == null) {
+    // this bucket is empty, create a new SinglyLinkedList for it
+    this.container[hash] = new SinglyLinkedList();
+    this.container[hash].addToTail(new Node(key, value)); // adding the element
+    this.loadNum++; // increase the number of elements in hashmap
+  } else {
+    // bucket is not empty, operate on the existing SinglyLinkedList in it
+    const node = bucket.updateNode(key, value); // try to find and update node
+    if (node == null) {
+      // couldn't find a node in SinglyLinkedList with this key
+      bucket.addToTail(new Node(key, value)); // this is a new element, add it to hashmap
+      this.loadNum++; // increase the number of elements in hashmap
+    }
+  }
+
+  // Check if we exceeded the maximum loadFactor, if so, resize the hashmap
+  if (this.loadNum / this.capacity > this.loadFactorMax) {
+    this.resize();
+  }
+}
+```
+
+<p style="color: var(--clr-text-code); font-size: 1.5rem;">resize</p>
+
+Double the number of buckets in the HashMap. Then we need to remap all the elements.<br />
+We loop thru each buckets. For a bucket, we go thru the singly linked list in the bucket.<br />
+For each node in the singly linked list, if the hash number is still the same, we can keep this node in the current list. <br/>
+If the hash is different, it should be removed from the current list, and inserted to the tail of the list in another bucket.
+
+```js
+resize() {
+  this.container = this.container.concat(new Array(this.capacity));
+  this.capacity = this.capacity * 2;
+  for (let i = 0; i < this.capacity / 2; ++i) {
+    if (this.container[i] != null) {
+      let prev = this.container[i].head,
+        node = prev.next;
+      while (node) {
+        const hash = this.hash(node.key);
+        if (hash != i) {
+          // node should be in another bucket
+          // remove element from current bucket
+          prev.next = node.next;
+          if (node == this.container[i].tail) {
+            this.container[i].tail = prev;
+          }
+          this.container[i].len--;
+
+          // add node to another bucket
+          if (this.container[hash] == null)
+            this.container[hash] = new SinglyLinkedList();
+          node.next = null;
+          this.container[hash].addToTail(node);
+
+          // continue iteration
+          node = prev.next;
+        } else {
+          // node stays in this bucket, continue iteration
+          prev = node;
+          node = node.next;
+        }
+      }
+    }
+  }
+}
+```
+
+### - Use HashMap: LRU Cache
+
+Now we have a fully functionaly HashMap. It can be used for many many things.
+
+A typical usage of HashMap is implementing **Least Recently Used (LRU) cache** (LeetCode 146). <br />
+LRU cache can be solved with a hashmap that keeps track of the keys and its values in the double linked list:
+<img src={LRUImg} alt="LRU cache data structure" />
+
+But there's a neat thing about HashMap implementation in javascript according to [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map#:~:text=The%20keys%20in%20Map%20are,for%20string%20and%20Symbol%20keys.):
+<blockquote display='info'>
+The Map object holds key-value pairs and remembers the original insertion order of the keys. Any value (both objects and primitive values) may be used as either a key or a value.
+</blockquote>
+
+Therefore, to implement a LRU cache in javascript, we only need a HashMap:
+
+```js
+class LRUCache {
+  constructor(capacity) {
+    this.cache = new Map(); // the first key is the least recently used key
+    this.capacity = capacity;
+  }
+
+  get(key) {
+    let cache = this.cache;
+    let val = cache.get(key);
+    if (val) {
+      cache.delete(key);
+      cache.set(key, val);
+      // delete and set makes this key at the end of HashMap,
+      // therefore the most recently used
+      return val;
+    }
+    return -1;
+  }
+
+  put(key, value) {
+    let cache = this.cache;
+    if (cache.has(key)) cache.delete(key);
+    else if (cache.size >= this.capacity) {
+      // cache full, delete the first key, the least recently used
+      cache.delete(cache.keys().next().value);
+    }
+    cache.set(key, value);
+  }
+}
+```
+
+### - Conclusion
+
+We covered the basic data structure, and basic methods of HashMap. But there are still so many things we didn't take care of. Here are a few topics that the reader could explorer more if interested:
+- Make hash function more random (for example: `hash ^ (hash >>> 4)` includes the higher bits; or use a random seed (JDK1.7) )
+- When to change linked list to red-black tree
