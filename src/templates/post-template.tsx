@@ -89,6 +89,7 @@ const Wrapper = styled.section`
   margin-bottom: 1rem;
   .post-body {
     font-family: var(--ff-primary);
+    max-width: 900px;
 
     /*
     ===============
